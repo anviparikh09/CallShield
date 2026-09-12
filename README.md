@@ -48,11 +48,54 @@ Install the following before running the project:
 1. Start MySQL Server.
 2. Open MySQL Workbench.
 3. Create the CallShield database:
-
-```sql
+   ```sql
 CREATE DATABASE callshield;
 USE callshield;
 ```
+
+4. Create the `reports` table:
+
+```sql
+CREATE TABLE reports (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    phone_number VARCHAR(20),
+    category VARCHAR(50),
+    reason VARCHAR(255),
+    risk_score INT,
+    risk_level VARCHAR(20)
+);
+```
+
+### Run the Project
+
+1. Open the project in Visual Studio Code or any Java IDE.
+2. Open the `src` folder in the terminal.
+3. Compile the Java files:
+
+```bash
+javac *.java
+```
+
+4. Run the main program with MySQL Connector/J:
+
+```bash
+java -cp ".;mysql-connector-j-26.7.0.jar" Main
+```
+
+5. Enter the call details when prompted.
+6. The system calculates the risk score, displays the risk level, and saves the report to the MySQL database.
+
+## Testing
+
+The project was tested by providing different call inputs and checking the generated risk score and risk level.
+
+Test cases included:
+- Normal call → Low Risk
+- Repeated call → Suspicious
+- Suspicious offer → High Risk
+- Personal information request + suspicious factors → High Risk
+
+The generated reports were also verified in the MySQL `reports` table to confirm successful database storage through JDBC.
 
 ## Screenshots
 
